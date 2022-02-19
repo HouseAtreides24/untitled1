@@ -1,8 +1,8 @@
 const fs = require("fs")
 const path = require("path")
 
-const fileOnline = path.join(__dirname, "main", "online", "onlineUsers.txt");
-const fileInPersonUsers = path.join(__dirname, "main", "inPerson", "inPersonUsers.txt");
+
+
 
 fs.mkdir("./main", function(err) {
     if (err) {
@@ -26,14 +26,15 @@ fs.mkdir("./main/online", function(err) {
     }
 })
 
-fs.open('./main/inPerson/inPersonUsers.txt', 'w', function (err, file) {
-    if (err) throw err;
-    console.log('File is opened in write mode.');
-});
-fs.open('./main/online/onlineUsers.txt', 'w', function (err, file) {
-    if (err) throw err;
-    console.log('File is opened in write mode.');
-});
+// fs.open('./main/inPerson/inPersonUsers.txt', 'w', function (err, file) {
+//     if (err) throw err;
+//     console.log('File is opened in write mode.');
+// });
+// fs.open('./main/online/onlineUsers.txt', 'w', function (err, file) {
+//     if (err) throw err;
+//     console.log('File is opened in write mode.');
+// });
+
 const  onlineUsers = [
     {name: 'Kuziv V', age: 43,city: 'Praga'},
     {name: 'Opus Y', age: 21,city: 'I-Fr'},
@@ -49,10 +50,11 @@ const  inPersonUsers = [
     {name: 'Igor', age: 25,city: 'Isengard'}
 ]
 
+
 for (let i = 0; i < inPersonUsers.length; i++) {
     for (const key in inPersonUsers[i]) {
         fs.writeFile(
-            fileInPersonUsers,
+            path.join(__dirname, "main", "inPerson", `${inPersonUsers[i].name}`),
             `${key}  ${inPersonUsers[i][key]}  \n`,
             {flag: "a"},
             (err) => {
@@ -66,7 +68,7 @@ for (let i = 0; i < inPersonUsers.length; i++) {
     for (let i = 0; i < onlineUsers.length; i++) {
         for (const key in onlineUsers[i]) {
             fs.writeFile(
-                fileOnline,
+                path.join(__dirname, "main", "online",`${onlineUsers[i].name}`),
                 `${key}  ${onlineUsers[i][key]}  \n`,
                 {flag: "a"},
                 (err) => {
@@ -87,34 +89,34 @@ for (let i = 0; i < inPersonUsers.length; i++) {
     //         }
     //     }
     // )
-function replaceData (file1,file2){
-        let testFile = "./testFile.txt";
-        //Create testFile
-    fs.open(testFile, 'w', function (err, file) {
-        if (err) throw err;
-        console.log('File is opened in write mode.');
-    });
-    // copy from file1 to testFile
-    fs.copyFile(file1, testFile, (error) => {
-        if (error) {
-            console.error(error);
-            return;
-        }
-    });
-    // copy from file2 to file1
-    fs.copyFile(file2, file1, (error) => {
-        if (error) {
-            console.error(error);
-            return;
-        }
-    });
-    // copy from testFile to file2
-    fs.copyFile(testFile, file2, (error) => {
-        if (error) {
-            console.error(error);
-            return;
-        }
-    });
-    //fs.unlinkSync(filePath);
-}
-    replaceData(fileOnline,fileInPersonUsers)
+// function replaceData (file1,file2){
+//         let testFile = "./testFile.txt";
+//         //Create testFile
+//     fs.open(testFile, 'w', function (err, file) {
+//         if (err) throw err;
+//         console.log('File is opened in write mode.');
+//     });
+//     // copy from file1 to testFile
+//     fs.copyFile(file1, testFile, (error) => {
+//         if (error) {
+//             console.error(error);
+//             return;
+//         }
+//     });
+//     // copy from file2 to file1
+//     fs.copyFile(file2, file1, (error) => {
+//         if (error) {
+//             console.error(error);
+//             return;
+//         }
+//     });
+//     // copy from testFile to file2
+//     fs.copyFile(testFile, file2, (error) => {
+//         if (error) {
+//             console.error(error);
+//             return;
+//         }
+//     });
+//     //fs.unlinkSync(filePath);
+// }
+//     replaceData(fileOnline,fileInPersonUsers)
